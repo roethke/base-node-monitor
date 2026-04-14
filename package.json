@@ -9,6 +9,7 @@
     "scheduler": "node src/scheduler/scheduler.js",
     "scheduler:dev": "nodemon src/scheduler/scheduler.js",
     "crawl": "node -e \"require('./src/database/db'); require('./src/crawler/crawler'); const db = new (require('./src/database/db'))(); const crawler = new (require('./src/crawler/crawler'))(db); crawler.crawlAllNetworks().then(r => { console.log(JSON.stringify(r, null, 2)); process.exit(0); })\"",
+    "report": "node src/report/generate-report.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

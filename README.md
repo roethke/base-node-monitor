@@ -2,6 +2,8 @@
 
 Network monitoring tool for Base Mainnet and Sepolia that tracks node client versions, distribution, and health across the network.
 
+![Base Node Monitor Dashboard](base-node-network-monitor-dashboard-preview.png)
+
 ## Quick Start
 
 ### 1. Install Dependencies
@@ -39,7 +41,12 @@ npm run scheduler:dev
 
 # Run a one-time crawl
 npm run crawl
+
+# Generate HTML dashboard report
+npm run report
 ```
+
+The HTML report (`base_nodes_report.html`) provides a visual dashboard of the current network state, perfect for sharing or viewing offline.
 
 ## API Endpoints
 
