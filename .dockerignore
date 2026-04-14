@@ -7,7 +7,6 @@ npm-debug.log
 *.md
 docs
 tests
-scripts/legacy
 base_nodes.db
 *.sqlite
 *.db
