@@ -1,0 +1,16 @@
+node_modules
+npm-debug.log
+.env
+.env.local
+.git
+.gitignore
+*.md
+docs
+tests
+scripts/legacy
+base_nodes.db
+*.sqlite
+*.db
+.DS_Store
+data
+docker

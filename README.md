@@ -188,7 +188,35 @@ SQLite database (`base_nodes.db`) with two tables:
 
 ## Deployment
 
-### Option 1: PM2 (Recommended)
+### Option 1: Docker (Recommended)
+
+Using Docker Compose (runs both API and scheduler):
+
+```bash
+# Start services
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+```
+
+Or using Docker directly:
+
+```bash
+# Build image
+docker build -t base-monitor .
+
+# Run API only
+docker run -d -p 8000:8000 -v $(pwd)/data:/app/data --name base-monitor-api base-monitor
+
+# Run scheduler (shares database with API)
+docker run -d -v $(pwd)/data:/app/data --name base-monitor-scheduler base-monitor node src/scheduler/scheduler.js
+```
+
+### Option 2: PM2
 
 ```bash
 npm install -g pm2
@@ -202,40 +230,6 @@ pm2 start src/scheduler/scheduler.js --name base-monitor-scheduler
 # Save and setup startup
 pm2 save
 pm2 startup
-```
-
-### Option 2: Docker (Coming Soon)
-
-```bash
-docker build -t base-monitor .
-docker run -p 8000:8000 base-monitor
-```
-
-### Option 3: Systemd Service
-
-Create `/etc/systemd/system/base-monitor-api.service`:
-
-```ini
-[Unit]
-Description=Base Node Monitor API
-After=network.target
-
-[Service]
-Type=simple
-User=your-user
-WorkingDirectory=/path/to/base-node-monitor
-ExecStart=/usr/bin/node /path/to/base-node-monitor/src/api/server.js
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Create `/etc/systemd/system/base-monitor-scheduler.service` (similar but with `src/scheduler/scheduler.js`).
-
-```bash
-sudo systemctl enable base-monitor-api base-monitor-scheduler
-sudo systemctl start base-monitor-api base-monitor-scheduler
 ```
 
 ## License

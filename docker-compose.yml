@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: base-monitor-api
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - NODE_ENV=production
+      - DB_PATH=/app/data/base_nodes.db
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    command: node src/api/server.js
+
+  scheduler:
+    build: .
+    container_name: base-monitor-scheduler
+    environment:
+      - NODE_ENV=production
+      - DB_PATH=/app/data/base_nodes.db
+      - SCHEDULER_INTERVAL_HOURS=6
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    command: node src/scheduler/scheduler.js
+    depends_on:
+      - api
+
+volumes:
+  data:
