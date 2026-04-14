@@ -1,0 +1,20 @@
+{
+  "name": "base-telemetry-agent",
+  "version": "1.0.0",
+  "description": "Telemetry agent for Base nodes - opt-in monitoring sidecar",
+  "main": "agent.js",
+  "scripts": {
+    "start": "node agent.js"
+  },
+  "keywords": [
+    "base",
+    "blockchain",
+    "telemetry",
+    "monitoring"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}

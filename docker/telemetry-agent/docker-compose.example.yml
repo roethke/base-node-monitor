@@ -1,0 +1,53 @@
+# Example docker-compose.yml for operators
+# This shows how to run the telemetry agent alongside a Base node
+
+version: '3.8'
+
+services:
+  # Your existing Base node (example - operators will have their own setup)
+  base-node:
+    image: ghcr.io/base-org/node:latest
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+      - "30303:30303"
+    volumes:
+      - ./data:/data
+    # ... your node configuration ...
+
+  # Telemetry agent (opt-in monitoring)
+  telemetry-agent:
+    image: base-telemetry-agent:latest
+    # Or build from source:
+    # build:
+    #   context: ../..
+    #   dockerfile: docker/telemetry-agent/Dockerfile
+    environment:
+      # Required: Your node's RPC endpoint
+      NODE_RPC_URL: http://base-node:8545
+
+      # Required: Telemetry collection server
+      TELEMETRY_ENDPOINT: https://telemetry.base.org/api/telemetry/report
+
+      # Required: Network (mainnet or sepolia)
+      NETWORK: mainnet
+
+      # Optional: Give your node a name (appears on dashboard)
+      NODE_NAME: MyCompany-Node-1
+
+      # Optional: Report interval in seconds (default: 21600 = 6 hours)
+      REPORT_INTERVAL: 21600
+
+      # Optional: Enable verbose logging
+      VERBOSE: "false"
+
+    depends_on:
+      - base-node
+    restart: unless-stopped
+
+    # Optional: Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
