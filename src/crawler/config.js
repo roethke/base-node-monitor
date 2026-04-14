@@ -1,5 +1,8 @@
 /**
  * Network configurations for Base Node Monitor
+ *
+ * NOTE: Any API keys or tokens visible in the RPC endpoint URLs below are
+ * public test/demo keys provided by the respective services for public use.
  */
 
 const NETWORKS = {

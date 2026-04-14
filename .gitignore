@@ -1,14 +1,13 @@
 # Generated files
 base_nodes.db
 base_nodes_report.html
+data/
 
 # Node.js
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
-yarn.lock
 
 # Environment
 .env
